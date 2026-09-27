@@ -1,0 +1,44 @@
+name: Atualizar biblioteca
+
+on:
+  push:
+    paths:
+      - "livros/**"
+      - "imagens/**"
+      - "scripts/**"
+
+jobs:
+  atualizar-readme:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Gerar README
+        run: node scripts/gerar-readme.js
+
+      - name: Verificar alterações
+        run: git diff -- README.md
+
+      - name: Commit README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração no README."
+          else
+            git commit -m "docs: atualizar catálogo de livros"
+            git push
+          fi
