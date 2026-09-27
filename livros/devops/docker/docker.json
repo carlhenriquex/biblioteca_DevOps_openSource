@@ -1,0 +1,8 @@
+{
+  "titulo": "Docker Essencial",
+  "autor": "Nome do Autor",
+  "descricao": "Um guia introdutório sobre containers, imagens, volumes e redes com Docker.",
+  "categoria": "DevOps",
+  "subcategoria": "Docker",
+  "capa": "docker.png"
+}
